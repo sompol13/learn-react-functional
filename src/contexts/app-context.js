@@ -1,4 +1,4 @@
-import React, { useContext, useState, useReducer } from 'react'
+import React, { useContext, useState, useReducer, useMemo } from 'react'
 
 const AppContext = React.createContext();
 
@@ -29,20 +29,23 @@ const reducer = (prevState, action) => {
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const appStore = {
-    getToken: () => {
-      return state.token
-    },
-    restoreToken: (token) => {
-      dispatch({ type: 'RESTORE_TOKEN', token });
-    },
-    getTheme: () => {
-      return state.theme;
-    },
-    toggleTheme: () => {
-      dispatch({ type: 'TOGGLE_THEME' });
+  const appStore = useMemo(() => {
+    return {
+      getToken: () => {
+        return state.token
+      },
+      restoreToken: (token) => {
+        dispatch({ type: 'RESTORE_TOKEN', token });
+      },
+      getTheme: () => {
+        return state.theme;
+      },
+      toggleTheme: () => {
+        dispatch({ type: 'TOGGLE_THEME' });
+      }
     }
-  }
+  }, [state])
+  // }, [state.theme])
 
   return (
     <AppContext.Provider value={appStore}>

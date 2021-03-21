@@ -2,7 +2,7 @@ import React from 'react';
 import { AppProvider, useApp } from './contexts/app-context';
 import FirstLevel from './components/FirstLevel';
 
-// This will make all children re-render.
+// This will make all children re-render (react's nature).
 // const App = () => {
 //   const { getToken, restoreToken } = useApp();
 //   return (
